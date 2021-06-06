@@ -46,7 +46,7 @@ cdefg`;
         <title>Note Maker</title>
       </Head>
 
-      <main className="flex flex-col">
+      <main className="flex flex-col font-mono">
         {noteLines.map((noteLine, lineNumber) => {
           return <NoteLine key={lineNumber} notes={noteLine} />;
         })}
