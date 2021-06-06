@@ -4,19 +4,21 @@ import Head from 'next/head';
 const getNoteColour = (note) => {
   switch (note) {
     case 'c':
-      return '#F87171';
+      return '#db2029';
     case 'd':
-      return '#FBBF24';
+      return '#f48c12';
     case 'e':
-      return '#34D399';
+      return '#ffd800';
     case 'f':
-      return '#60A5FA';
+      return '#8bc522';
     case 'g':
-      return '#818CF8';
+      return '#0281c5';
     case 'a':
-      return '#A78BFA';
+      return '#95d5f8';
     case 'b':
-      return '#F472B6';
+      return '#99509d';
+    case 'C':
+      return '#bc92c1';
     default:
       return '#9CA3AF';
   }
@@ -56,11 +58,11 @@ const NoteLine = ({ notes }) => {
 };
 
 export default function Home() {
-  const defaultNotes = `a b c d e f g
+  const defaultNotes = `c d e f g a b C
 
-gfedcba
+cdefgabC
 
-aa bb cc ddd ee f`;
+cC cC`;
 
   const [notes, setNotes] = React.useState(defaultNotes);
 
