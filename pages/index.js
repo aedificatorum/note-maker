@@ -57,16 +57,43 @@ const NoteLine = ({ notes }) => {
   );
 };
 
+const SongNotes = ({ noteLines }) => {
+  return (
+    <div className="flex flex-col font-mono font-semibold text-white space-y-3">
+      {noteLines.map((noteLine, lineNumber) => {
+        return <NoteLine key={lineNumber} notes={noteLine} />;
+      })}
+    </div>
+  );
+};
+
+const parseSong = (song) => {
+  const lines = song.split('\n');
+  let songLines = lines;
+  let title = '';
+
+  if (lines[0].length && lines[0][0] === '#') {
+    songLines = lines.slice(1);
+    const afterHash = lines[0].split('#')[1].trim();
+    if (afterHash.length) {
+      title = afterHash;
+    }
+  }
+
+  return [title, songLines];
+};
+
 export default function Home() {
-  const defaultNotes = `c d e f g a b C
+  const defaultSong = `# Song title
+c d e f g a b C
 
 cdefgabC
 
 cC cC`;
 
-  const [notes, setNotes] = React.useState(defaultNotes);
+  const [song, setSong] = React.useState(defaultSong);
 
-  const noteLines = notes.split('\n');
+  const [songTitle, noteLines] = parseSong(song);
 
   return (
     <div>
@@ -76,16 +103,17 @@ cC cC`;
       <main className="p-3">
         <section>
           <textarea
-            value={notes}
-            rows={notes.split('\n').length}
+            value={song}
+            rows={song.split('\n').length}
             cols={50}
-            onChange={(e) => setNotes(e.target.value)}
+            onChange={(e) => setSong(e.target.value)}
           />
         </section>
-        <section className="flex flex-col font-mono font-semibold text-white space-y-3">
-          {noteLines.map((noteLine, lineNumber) => {
-            return <NoteLine key={lineNumber} notes={noteLine} />;
-          })}
+        <section>
+          {songTitle.length > 0 ? (
+            <h2 className="text-4xl p-2 mb-4 font-bold">{songTitle}</h2>
+          ) : null}
+          <SongNotes noteLines={noteLines} />
         </section>
       </main>
     </div>
