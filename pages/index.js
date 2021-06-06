@@ -1,28 +1,30 @@
 import Head from 'next/head';
 
+const Space = () => {
+  return (
+    <div className="mx-1 py-2 px-4 rounded-full bg-white font-semibold text-white">
+      .
+    </div>
+  );
+};
+
+const Note = ({ note }) => {
+  return (
+    <div className="mx-1 py-2 px-4 rounded-full text-white font-semibold bg-green-500">
+      {note}
+    </div>
+  );
+};
+
 const NoteLine = ({ notes }) => {
   return (
     <div className="flex flex-row">
       {notes.split('').map((note, i) => {
         if (note === ' ') {
-          return (
-            <div
-              key={i}
-              className="mx-1 py-2 px-4 rounded-full bg-white font-semibold text-white"
-            >
-              .
-            </div>
-          );
+          return <Space key={i} />;
         }
 
-        return (
-          <div
-            key={i}
-            className="mx-1 py-2 px-4 rounded-full text-white font-semibold bg-green-500"
-          >
-            {note}
-          </div>
-        );
+        return <Note key={i} note={note} />;
       })}
     </div>
   );
