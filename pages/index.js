@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 
 const getNoteColour = (note) => {
@@ -55,13 +56,13 @@ const NoteLine = ({ notes }) => {
 };
 
 export default function Home() {
-  const notes = `cc d eef  cfdef
-cc d ee
-cdefg
+  const defaultNotes = `a b c d e f g
 
-abcdefg
+gfedcba
 
-gfedcba`;
+aa bb cc ddd ee f`;
+
+  const [notes, setNotes] = React.useState(defaultNotes);
 
   const noteLines = notes.split('\n');
 
@@ -70,11 +71,20 @@ gfedcba`;
       <Head>
         <title>Note Maker</title>
       </Head>
-
-      <main className="p-3 flex flex-col font-mono font-semibold text-white space-y-3">
-        {noteLines.map((noteLine, lineNumber) => {
-          return <NoteLine key={lineNumber} notes={noteLine} />;
-        })}
+      <main className="p-3">
+        <section>
+          <textarea
+            value={notes}
+            rows={notes.split('\n').length}
+            cols={50}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+        </section>
+        <section className="flex flex-col font-mono font-semibold text-white space-y-3">
+          {noteLines.map((noteLine, lineNumber) => {
+            return <NoteLine key={lineNumber} notes={noteLine} />;
+          })}
+        </section>
       </main>
     </div>
   );
