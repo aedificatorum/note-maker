@@ -71,6 +71,7 @@ const parseSong = (song) => {
   const lines = song.split('\n');
   let songLines = lines;
   let title = '';
+  let lyrics = '';
 
   if (lines[0].length && lines[0][0] === '#') {
     songLines = lines.slice(1);
@@ -80,7 +81,14 @@ const parseSong = (song) => {
     }
   }
 
-  return [title, songLines];
+  const match = song.match(/---([\s\S]*)---([\s\S]*)/);
+
+  if (match) {
+    lyrics = match[1];
+    songLines = match[2].split('\n');
+  }
+
+  return [title, songLines, lyrics];
 };
 
 export default function Home() {
@@ -93,7 +101,7 @@ cC cC`;
 
   const [song, setSong] = React.useState(defaultSong);
 
-  const [songTitle, noteLines] = parseSong(song);
+  const [songTitle, noteLines, lyrics] = parseSong(song);
 
   return (
     <div>
@@ -113,6 +121,7 @@ cC cC`;
           {songTitle.length > 0 ? (
             <h2 className="text-4xl p-2 mb-4 font-bold">{songTitle}</h2>
           ) : null}
+          {lyrics.length > 0 ? lyrics : null}
           <SongNotes noteLines={noteLines} />
         </section>
       </main>
