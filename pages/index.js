@@ -68,24 +68,20 @@ const SongNotes = ({ noteLines }) => {
 };
 
 const parseSong = (song) => {
-  const lines = song.split('\n');
-  let songLines = lines;
+  let songLines = song.split('\n');
   let title = '';
   let lyrics = '';
 
-  if (lines[0].length && lines[0][0] === '#') {
-    songLines = lines.slice(1);
-    const afterHash = lines[0].split('#')[1].trim();
-    if (afterHash.length) {
-      title = afterHash;
-    }
+  const titleMatch = song.match(/#[\s](.*)[\s]/);
+  if (titleMatch) {
+    title = titleMatch[1];
   }
 
-  const match = song.match(/---([\s\S]*)---([\s\S]*)/);
+  const lyricsMatch = song.match(/---([\s\S]*)---([\s\S]*)/);
 
-  if (match) {
-    lyrics = match[1];
-    songLines = match[2].split('\n');
+  if (lyricsMatch) {
+    lyrics = lyricsMatch[1];
+    songLines = lyricsMatch[2].split('\n');
   }
 
   return [title, songLines, lyrics];
