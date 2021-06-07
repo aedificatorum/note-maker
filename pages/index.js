@@ -72,7 +72,7 @@ const parseSong = (song) => {
   let title = '';
   let lyrics = '';
 
-  const titleMatch = song.match(/#[\s](.*)[\s]/);
+  const titleMatch = song.match(/#[\s]*?(.*)[\s]*?/);
   if (titleMatch) {
     title = titleMatch[1];
   }
