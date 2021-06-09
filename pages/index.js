@@ -67,6 +67,14 @@ const SongNotes = ({ noteLines }) => {
   );
 };
 
+const DisplayLyrics = ({ lyrics }) => {
+  const splitLyrics = lyrics.split('\n');
+
+  return splitLyrics.map((lyric, line) => {
+    return <div key={line}>{lyric}</div>;
+  });
+};
+
 const parseSong = (song) => {
   let songLines = song.split('\n');
   let title = '';
@@ -89,6 +97,11 @@ const parseSong = (song) => {
 
 export default function Home() {
   const defaultSong = `# Song title
+  ---
+  Type the lyrics here
+  Press enter to create a new line
+  ---
+
 c d e f g a b C
 
 cdefgabC
@@ -117,7 +130,7 @@ cC cC`;
           {songTitle.length > 0 ? (
             <h2 className="text-4xl p-2 mb-4 font-bold">{songTitle}</h2>
           ) : null}
-          {lyrics.length > 0 ? lyrics : null}
+          <DisplayLyrics lyrics={lyrics} />
           <SongNotes noteLines={noteLines} />
         </section>
       </main>
